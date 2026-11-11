@@ -1,0 +1,97 @@
+.enemy-indicator {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  will-change: transform, opacity;
+  transform-style: preserve-3d;
+  font-family: 'Orbitron', monospace;
+}
+.enemy-indicator.on-screen .indicator-box {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  opacity: 0.9;
+}
+
+.enemy-indicator.on-screen .corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border: 2px solid #ff4444;
+  background: transparent;
+  box-shadow: 0 0 10px rgba(255, 68, 68, 0.5);
+}
+
+.enemy-indicator.on-screen .corner.top-left {
+  top: 0;
+  left: 0;
+  border-right: none;
+  border-bottom: none;
+}
+
+.enemy-indicator.on-screen .corner.top-right {
+  top: 0;
+  right: 0;
+  border-left: none;
+  border-bottom: none;
+}
+
+.enemy-indicator.on-screen .corner.bottom-left {
+  bottom: 0;
+  left: 0;
+  border-right: none;
+  border-top: none;
+}
+
+.enemy-indicator.on-screen .corner.bottom-right {
+  bottom: 0;
+  right: 0;
+  border-left: none;
+  border-top: none;
+}
+.enemy-indicator.off-screen .indicator-arrow {
+  width: 30px;
+  height: 30px;
+  position: relative;
+}
+
+.enemy-indicator.off-screen .arrow-shape {
+  width: 0;
+  height: 0;
+  border-left: 15px solid transparent;
+  border-right: 15px solid transparent;
+  border-bottom: 25px solid #ff4444;
+  transform: rotate(-90deg);
+  filter: drop-shadow(0 0 8px rgba(255, 68, 68, 0.7));
+}
+.distance-text {
+  position: absolute;
+  top: -25px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: #00ff88;
+  font-size: 12px;
+  font-weight: bold;
+  text-shadow: 0 0 5px rgba(0, 255, 136, 0.8);
+  white-space: nowrap;
+}
+.enemy-indicator {
+  transition: opacity 0.15s ease-out;
+}
+.enemy-indicator.threat-high .corner,
+.enemy-indicator.threat-high .arrow-shape {
+  border-color: #ff2222;
+  box-shadow: 0 0 15px rgba(255, 34, 34, 0.8);
+}
+
+.enemy-indicator.threat-medium .corner,
+.enemy-indicator.threat-medium .arrow-shape {
+  border-color: #ff8844;
+  box-shadow: 0 0 12px rgba(255, 136, 68, 0.6);
+}
+
+.enemy-indicator.threat-low .corner,
+.enemy-indicator.threat-low .arrow-shape {
+  border-color: #ffaa66;
+  box-shadow: 0 0 8px rgba(255, 170, 102, 0.4);
+}

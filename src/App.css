@@ -1,0 +1,96 @@
+#root {
+  width: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-primary);
+  position: relative;
+}
+.tactical-container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0;
+}
+#root.combat-active {
+  overflow: hidden;
+}
+.tactical-logo {
+  filter: drop-shadow(0 0 10px rgba(0, 255, 255, 0.5));
+  transition: filter 300ms;
+}
+
+.tactical-logo:hover {
+  filter: drop-shadow(0 0 20px rgba(0, 255, 255, 0.8));
+}
+@keyframes hud-pulse {
+  0%, 100% {
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 1.0;
+  }
+}
+
+.hud-pulse {
+  animation: hud-pulse 2s ease-in-out infinite;
+}
+.data-readout {
+  font-family: 'Orbitron', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 1px;
+  color: var(--text-tactical);
+}
+.status-indicator {
+  position: relative;
+  display: inline-block;
+}
+
+.status-indicator::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -10px;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: currentColor;
+  box-shadow: 0 0 8px currentColor;
+}
+.tactical-grid {
+  background-image: 
+    linear-gradient(rgba(0, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.terminal-text {
+  font-family: 'Rajdhani', monospace;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+@media (max-width: 768px) {
+  .tactical-title {
+    font-size: 2.5rem;
+  }
+  
+  .hud-panel {
+    margin: 0.5rem;
+    padding: 1rem;
+  }
+  
+  .tactical-btn {
+    font-size: 0.875rem;
+    padding: 0.75rem 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .tactical-title {
+    font-size: 2rem;
+  }
+  
+  .hud-panel {
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+}

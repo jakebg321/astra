@@ -1,0 +1,18 @@
+services:
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: astra_demo
+      POSTGRES_PASSWORD: localdemo
+      POSTGRES_DB: astra_demo
+    ports:
+      - "127.0.0.1:55440:5432"
+    volumes:
+      - astra_demo_db:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U astra_demo -d astra_demo"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+volumes:
+  astra_demo_db:

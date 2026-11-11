@@ -1,0 +1,91 @@
+.bottom-hud {
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    pointer-events: none;
+    user-select: none;
+}
+
+.hud-container {
+    display: flex;
+    gap: 20px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 10px;
+    padding: 15px 25px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.bar-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 150px;
+}
+
+.bar-label {
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+.bar-background {
+    width: 150px;
+    height: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.bar-fill {
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 10px;
+    box-shadow: 0 0 10px currentColor;
+}
+
+.bar-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 12px;
+    font-weight: bold;
+    text-shadow: 0 0 3px rgba(0, 0, 0, 0.8);
+}
+.health-bar {
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.enemy-bar {
+    background: linear-gradient(90deg, #ff0000, #ff4444);
+}
+
+.boost-bar {
+    background: linear-gradient(90deg, #ff00ff, #ff0080);
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.9; }
+    50% { opacity: 1; }
+}
+.bar-section:has(.health-bar[style*="width: 0%"]),
+.bar-section:has(.health-bar[style*="width: 1"]),
+.bar-section:has(.health-bar[style*="width: 2"]) {
+    animation: critical-flash 0.5s ease-in-out infinite;
+}
+
+@keyframes critical-flash {
+    0%, 100% { filter: brightness(1); }
+    50% { filter: brightness(1.5); }
+}
