@@ -14,7 +14,21 @@ Fly from the cockpit, fire instant lasers, dodge with blinks, and use portals an
 - **81 → about 120 FPS.** A February 2026 profiling pass on a Helios Neo 16 recorded triangles dropping from **398K to 115K**, and draw calls from **57–64 to 48**. The work included pooling target brackets, throttling radar updates, reducing per-frame allocations and simplifying geometry. These are historical results for that build and machine, rather than a benchmark of this release.
 - **Separate movement and combat authority.** The client controls its own ship, sending updates at about **10 Hz**. The server runs physics at **20 Hz**, broadcasts state at **30 Hz**, and determines hits and damage. This keeps local controls responsive; trusting client positions remains a tradeoff for competitive play.
 - **A complete match lifecycle.** Server-controlled loading and readiness, round transitions, a **45-second reconnect window**, disconnect forfeits and database-backed match results handle more than the flight scene.
-- **Real settlement in the private version.** An earlier private implementation processed actual SOL wagers and recorded settlement receipts with combat statistics on-chain. It used server-operated custody. Wallets, wagering and settlement code are excluded from this release.
+- **Real settlement in the private version.** An earlier private implementation processed actual SOL wagers with server-operated custody and wrote each match result on-chain. See [Your win outlives the game](#your-win-outlives-the-game).
+
+## Your win outlives the game
+
+The private version of ASTRA ran real SOL wagers between players. When a match settled, the server paid the winner and wrote the result into the same Solana transaction.
+
+The database behind those matches has since been shut off, and the receipts are still on the chain. This excerpt comes from [a 20-second duel in February 2026](https://solscan.io/tx/24FMjJAUJgRHcVgN1pwMutd4snTgTQMxed1t3Vkk9nYG4v8ivC1gX4DYH9WQtiU5ijAPETU79HpwmGevR6ez9S2T).
+
+```json
+{"game":"ASTRA","mode":"duel","wager":0.00001,"hp":100,"dur":20,
+ "w":{"shots":23,"hits":18,"acc":78,"dmg":104},
+ "l":{"shots":0,"hits":0,"acc":0,"dmg":0}}
+```
+
+Getting it to fit took work, because full receipts blew past Solana's compute budget. The server built several sizes, simulated each one, and sent the richest that fit. The wager and wallet code isn't in this repo.
 
 ## Development
 
